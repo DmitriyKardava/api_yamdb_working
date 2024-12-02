@@ -1,5 +1,7 @@
 from django.db import models
 
+from review_user.models import ReviewUser
+
 
 class Category(models.Model):
     title = models.CharField(max_length=200)
@@ -20,6 +22,8 @@ class Genre(models.Model):
 
 
 class Title(models.Model):
+    author = models.ForeignKey(
+        ReviewUser, on_delete=models.CASCADE, related_name='titles')
     title = models.TextField()
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
     category = models.OneToOneField(
@@ -36,8 +40,8 @@ class Title(models.Model):
 
 
 class Reviews(models.Model):
-    # author = models.ForeignKey(
-    #     User, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(
+        ReviewUser, on_delete=models.CASCADE, related_name='reviews')
     title = models.ForeignKey(
         Title, on_delete=models.CASCADE, related_name='reviews')
     text = models.TextField()
@@ -46,8 +50,8 @@ class Reviews(models.Model):
 
 
 class Comment(models.Model):
-    # author = models.ForeignKey(
-    #     User, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(
+        ReviewUser, on_delete=models.CASCADE, related_name='comments')
     review = models.ForeignKey(
         Reviews, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField()
