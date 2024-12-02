@@ -6,8 +6,8 @@ from api.views import CategoryViewSet, GenreViewSet, TitleViewSet
 
 v1_router = SimpleRouter()
 v1_router.register('categories', CategoryViewSet, basename='Category')
-v1_router.register('genres', GenreViewSet, basename='Category')
-v1_router.register('titles', TitleViewSet, basename='Category')
+v1_router.register('genres', GenreViewSet, basename='Genre')
+v1_router.register('titles', TitleViewSet, basename='Title')
 
 
 urlpatterns = [
