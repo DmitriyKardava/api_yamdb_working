@@ -4,25 +4,25 @@ from reviews.models import Category, Comment, Genre, Review, Title
 
 
 class TitleAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'title', 'year', 'category',)
+    list_display = ('pk', 'name', 'year', 'category',)
     list_editable = ('category',)
     search_fields = ('genre',)
     list_filter = ('year', 'category', 'genre',)
     filter_horizontal = ('genre',)
-    list_display_links = ('title',)
+    list_display_links = ('name',)
     empty_value_display = '-пусто-'
 
 
 class GenreAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'slug',)
+    list_display = ('id', 'name', 'slug',)
     list_display_links = list_display
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = {'slug': ('name',)}
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'slug',)
+    list_display = ('id', 'name', 'slug',)
     list_display_links = list_display
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = {'slug': ('name',)}
 
 
 admin.site.register(Title, TitleAdmin)

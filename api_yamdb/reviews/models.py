@@ -6,25 +6,30 @@ from review_user.models import ReviewUser
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=200, verbose_name='Название категории')
+    name = models.CharField(max_length=256, verbose_name='Название категории')
     slug = models.SlugField(
-        unique=True, db_index=True, verbose_name='slug категории')
+        max_length=50,
+        unique=True,
+        db_index=True,
+        verbose_name='slug категории')
 
     class Meta:
+        ordering = ('name',)
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Genre(models.Model):
-    title = models.CharField(max_length=200, verbose_name='Название жанра')
+    name = models.CharField(max_length=256, verbose_name='Название жанра')
     slug = models.SlugField(
         unique=True, db_index=True, verbose_name='slug жанра')
     description = models.TextField(verbose_name='описание жанра')
 
     class Meta:
+        ordering = ('name',)
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
 
@@ -33,8 +38,8 @@ class Genre(models.Model):
 
 
 class Title(models.Model):
-    title = models.TextField(
-        max_length=200, verbose_name='Название произведения', db_index=True)
+    name = models.TextField(
+        max_length=256, verbose_name='Название произведения', db_index=True)
     year = models.IntegerField(verbose_name='Год публикации', null=True)
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL,
@@ -50,11 +55,12 @@ class Title(models.Model):
     )
 
     class Meta:
+        ordering = ('name',)
         verbose_name = 'Произведение'
         verbose_name_plural = 'Произведения'
 
     def __str__(self):
-        return f'{self.title}, {self.category}, {self.genre}, {self.year}'
+        return f'{self.name}, {self.category}, {self.genre}, {self.year}'
 
 
 class Review(models.Model):
