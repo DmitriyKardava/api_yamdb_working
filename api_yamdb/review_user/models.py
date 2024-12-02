@@ -16,6 +16,11 @@ class ReviewUser(AbstractUser):
         choices=UserRole.choices,
         verbose_name="Роль",
     )
+    bio = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name="Биография",
+    )
 
     class Meta(AbstractUser.Meta):
         verbose_name = "Пользователь"
